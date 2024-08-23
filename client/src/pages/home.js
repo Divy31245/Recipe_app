@@ -6,12 +6,14 @@ export const Home = () => {
   const [recipes, setRecipes] = useState([]);
   const [savedRecipes, setSavedRecipes] = useState([]);
 
+  const api_url=process.env.REACT_APP_API;
+
   const userID = useGetUserID();
 
   useEffect(() => {
     const fetchRecipes = async () => {
       try {
-        const response = await axios.get("http://localhost:3001/recipes");
+        const response = await axios.get(`${api_url}/recipes`);
         setRecipes(response.data);
       } catch (err) {
         console.log(err);
@@ -21,7 +23,7 @@ export const Home = () => {
     const fetchSavedRecipes = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3001/recipes/savedRecipes/ids/${userID}`
+          `${api_url}/recipes/savedRecipes/ids/${userID}`
         );
         setSavedRecipes(response.data.savedRecipes);
       } catch (err) {
@@ -35,7 +37,7 @@ export const Home = () => {
 
   const saveRecipe = async (recipeID) => {
     try {
-      const response = await axios.put("http://localhost:3001/recipes", {
+      const response = await axios.put(`${api_url}/recipes`, {
         recipeID,
         userID,
       });
@@ -62,10 +64,10 @@ export const Home = () => {
                 {isRecipeSaved(recipe._id) ? "Saved" : "Save"}
               </button>
             </div>
+            <img src={recipe.imageUrl} alt={recipe.name} />
             <div className="instructions">
               <p>{recipe.instructions}</p>
             </div>
-            <img src={recipe.imageUrl} alt={recipe.name} />
             <p>Cooking Time: {recipe.cookingTime} minutes</p>
           </li>
         ))}

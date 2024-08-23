@@ -12,7 +12,12 @@ export const Auth = () => {
   );
 };
 
+
+
 const Login = () => {
+
+  const api_url=process.env.REACT_APP_API;
+
   const [_, setCookies] = useCookies(["access_token"]);
 
   const [username, setUsername] = useState("");
@@ -24,7 +29,7 @@ const Login = () => {
     event.preventDefault();
 
     try {
-      const result = await axios.post("http://localhost:3001/auth/login", {
+      const result = await axios.post(`${api_url}/auth/login`, {
         username,
         password,
       });
@@ -75,7 +80,7 @@ const Register = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      await axios.post("http://localhost:3001/auth/register", {
+      await axios.post(`${api_url}/auth/register`, {
         username,
         password,
       });

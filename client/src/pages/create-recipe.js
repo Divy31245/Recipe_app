@@ -17,6 +17,7 @@ export const CreateRecipe = () => {
     userOwner: userID,
   });
 
+  const api_url=process.env.REACT_APP_API;
   const navigate = useNavigate();
 
   const handleChange = (event) => {
@@ -40,7 +41,7 @@ export const CreateRecipe = () => {
     event.preventDefault();
     try {
       await axios.post(
-        "http://localhost:3001/recipes",
+        `${api_url}/recipes`,
         { ...recipe },
         {
           headers: { authorization: cookies.access_token },
@@ -79,7 +80,7 @@ export const CreateRecipe = () => {
             key={index}
             type="text"
             name="ingredients"
-            value={ingredient}
+            value={recipe.ingredient}
             onChange={(event) => handleIngredientChange(event, index)}
           />
         ))}
