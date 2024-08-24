@@ -75,6 +75,7 @@ const Register = () => {
   const [password, setPassword] = useState("");
 
   const [_, setCookies] = useCookies(["access_token"]);
+  const api_url=process.env.REACT_APP_API;
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
